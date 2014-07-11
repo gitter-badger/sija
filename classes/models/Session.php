@@ -2,7 +2,7 @@
 /**
  * Session model.
  *
- * @package api-framework
+ * @package sija-framework
  * @author  Alex Chermenin <alex@chermenin.ru>
  */
 
