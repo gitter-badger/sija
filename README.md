@@ -1,3 +1,3 @@
-Simple Json API Framework
+sija framework
 ===
 It is a simple framework to create RESTful Json API services.
