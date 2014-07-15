@@ -10,28 +10,31 @@
  * Init sessions.
  */
 session_start();
-error_reporting(0);
 
 /**
- * Generic class autoloader.
+ * Init general autoload class.
  * 
  * @param string $class_name
  */
-function autoload_class($class_name) {
+function sija_autoloader($class_name) {
     $directories = array(
-        'classes/',
         'classes/common/',
         'classes/controllers/',
     );
     foreach ($directories as $directory) {
-        $filename = $directory . $class_name . '.php';
-        if (is_file($filename)) {
-            require($filename);
+        $filename = "$directory/$class_name.php";
+        if (file_exists($filename)) {
+            require_once($filename);
             break;
         }
     }
 }
-spl_autoload_register('autoload_class');
+spl_autoload_register('sija_autoloader');
+
+/**
+ * Init debug mode.
+ */
+error_reporting(Config::$debug ? E_ALL : 0);
 
 /**
  * Init Active Record.
