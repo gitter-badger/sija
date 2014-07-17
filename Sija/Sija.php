@@ -28,7 +28,7 @@ function sija_autoloader($class_name) {
         require_once($filename);
     }
 }
-spl_autoload_register('sija_autoloader');
+spl_autoload_register('Sija\sija_autoloader');
 
 /**
  * Sija general class.
