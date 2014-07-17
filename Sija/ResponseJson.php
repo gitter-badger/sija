@@ -3,8 +3,11 @@
  * JSON response class.
  * 
  * @package sija-framework
- * @author  Alex Chermenin <alex@chermenin.ru>
+ * @author Alex Chermenin <alex@chermenin.ru>
  */
+
+namespace Sija;
+
 class ResponseJson
 {
     /**
@@ -17,15 +20,15 @@ class ResponseJson
     /**
      * Response data.
      *
-     * @var string
+     * @var object
      */
     protected $data;
     
     /**
      * Constructor.
      *
-     * @param $status
-     * @param string $data
+     * @param int $status
+     * @param mixed|object|string $data
      */
     public function __construct($status, $data)
     {

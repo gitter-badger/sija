@@ -6,6 +6,8 @@
  * @author  Alex Chermenin <alex@chermenin.ru>
  */
 
+namespace Sija;
+
 class Config {
 
     /**
@@ -22,7 +24,6 @@ class Config {
     /**
      * Database settings.
      */
-    static $modelsDirectory = 'classes/models';
     static $connections = array(
         'development' => 'mysql://username:password@localhost/database_name',
         'production' => 'mysql://username:password@localhost/database_name',

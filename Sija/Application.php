@@ -6,6 +6,10 @@
  * @author  Alex Chermenin <alex@chermenin.ru>
  */
 
+namespace Sija;
+
+use Sija\Models\User;
+
 class Application {
 
     /**
@@ -13,7 +17,7 @@ class Application {
      *
      * @return User
      */
-    public static function CurrentUser() {
+    public static function currentUser() {
         if (Common::checkAuthorization()) {
             $user = User::find_by_id($_SESSION['user']);
             return $user;
@@ -26,8 +30,8 @@ class Application {
      *
      * @return bool
      */
-    public static function IsAdmin() {
-        $user = self::CurrentUser();
+    public static function isAdmin() {
+        $user = self::currentUser();
         return $user ? $user->is_admin : false;
     }
 
@@ -36,8 +40,8 @@ class Application {
      *
      * @return bool
      */
-    public static function IsGuest() {
-        return self::CurrentUser() == null;
+    public static function isGuest() {
+        return self::currentUser() == null;
     }
 
 }

@@ -6,6 +6,10 @@
  * @author  Alex Chermenin <alex@chermenin.ru>
  */
 
+namespace Sija;
+
+use Sija\Models\Session, Sija\Models\User;
+
 class Common {
 
     /**

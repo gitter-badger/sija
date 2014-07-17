@@ -5,6 +5,9 @@
  * @package sija-framework
  * @author  Alex Chermenin <alex@chermenin.ru>
  */
+
+namespace Sija;
+
 class Request
 {
     /**
@@ -27,4 +30,11 @@ class Request
      * @var array
      */
     public $parameters;
+
+    /**
+     * JSON sent with the request.
+     *
+     * @var object
+     */
+    public $json;
 }
