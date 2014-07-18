@@ -60,11 +60,12 @@ class Sija {
     /**
      * General executor.
      *
+     * @param array $options
      * @return string
      */
-    public function execute() {
+    public function execute($options = array()) {
 
-        //Parse only AJAX requests.
+        // Parse only AJAX requests.
         if(!Config::$debug && (
             !isset($_SERVER['HTTP_X_REQUESTED_WITH']) ||
             empty($_SERVER['HTTP_X_REQUESTED_WITH']) ||
@@ -75,19 +76,34 @@ class Sija {
             return $response_obj->render();
         }
 
-        //Parse incoming request.
+        // Parse incoming request info.
         $request = new Request();
-        if (isset($_SERVER['PATH_INFO'])) {
-            $request->url_elements = explode('/', trim($_SERVER['PATH_INFO'], '/'));
+
+        // Parse path elements.
+        if (isset($options['path']) || isset($_SERVER['PATH_INFO'])) {
+            $request->url_elements = explode('/', trim(isset($options['path']) ? $options['path'] : $_SERVER['PATH_INFO'], '/'));
         }
-        $request->method = strtoupper($_SERVER['REQUEST_METHOD']);
-        switch ($request->method) {
-            case 'GET': $request->parameters = (object) $_GET; break;
-            case 'POST': $request->parameters = (object) $_POST; break;
-            default: $request->parameters = false; break;
+
+        // Parse request method & parameters
+        $request->method = strtoupper(isset($options['method']) ? $options['method'] : $_SERVER['REQUEST_METHOD']);
+        $request->parameters = null;
+        if (!isset($options['method'])) {
+            switch ($request->method) {
+                case 'GET': $request->parameters = (object) $_GET; break;
+                case 'POST': $request->parameters = (object) $_POST; break;
+            }
         }
-        $request_data = file_get_contents('php://input');
-        $request->json = json_decode($request_data);
+        if (isset($options['parameters']) && (is_array($options['parameters']) || is_object($options['parameters']))) {
+            $request->parameters = is_array($options['parameters']) ? (object) $options['parameters'] : $options['parameters'];
+        }
+
+        // Parse incoming data.
+        if (isset($options['json'])) {
+            $request->json = is_object($options['json']) ? $options['json'] : json_decode($options['json']);
+        } else {
+            $request_data = file_get_contents('php://input');
+            $request->json = json_decode($request_data);
+        }
 
         // Route the request.
         if (!empty($request->url_elements)) {
