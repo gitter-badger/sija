@@ -2,9 +2,8 @@
 /**
  * Controller class.
  *
- * @package sija-framework
- * @author  Alex Chermenin <alex@chermenin.ru>
- * @abstract
+ * @package Sija
+ * @author Alex Chermenin <alex@chermenin.ru>
  */
 
 namespace Sija;

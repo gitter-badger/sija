@@ -2,8 +2,8 @@
 /**
  * Class for common functions.
  *
- * @package sija-framework
- * @author  Alex Chermenin <alex@chermenin.ru>
+ * @package Sija
+ * @author Alex Chermenin <alex@chermenin.ru>
  */
 
 namespace Sija;

@@ -2,7 +2,7 @@
 /**
  * User controller.
  *
- * @package sija-framework
+ * @package Sija\Controllers
  * @author Alex Chermenin <alex@chermenin.ru>
  */
 

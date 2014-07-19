@@ -2,7 +2,7 @@
 /**
  * Session controller.
  *
- * @package sija-framework
+ * @package Sija\Controlles
  * @author Alex Chermenin <alex@chermenin.ru>
  */
 

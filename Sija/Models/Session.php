@@ -2,7 +2,7 @@
 /**
  * Session model.
  *
- * @package sija-framework
+ * @package Sija\Models
  * @author  Alex Chermenin <alex@chermenin.ru>
  */
 

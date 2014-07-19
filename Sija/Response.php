@@ -2,7 +2,7 @@
 /**
  * Response class factory.
  *
- * @package sija-framework
+ * @package Sija
  * @author Alex Chermenin <alex@chermenin.ru>
  */
 

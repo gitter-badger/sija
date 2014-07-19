@@ -1,8 +1,8 @@
 <?php
 /**
- * sija framework.
+ * Sija Framework.
  * 
- * @package sija-framework
+ * @package Sija
  * @author Alex Chermenin <alex@chermenin.ru>
  */
 
