@@ -89,20 +89,30 @@ class SessionController extends Sija\Common\Controller {
      * @return string
      */
     public function delete($request) {
-        if (Common::checkAuthorization()) {
-            $session = Session::find_by_id($_SESSION['session']);
-            if ($session) {
-                $session->delete();
-                session_destroy();
-                setcookie("u", '', time()-3600);
-                setcookie("s", '', time()-3600);
-                return $session->to_json();
-            } else {
-                throw new Exception("Session not found.", 404);
-            }
-        } else {
-            throw new Exception("Authorisation required.", 403);
+
+        switch (count($request->url_elements)) {
+
+            case 1:
+                if (Common::checkAuthorization()) {
+                    $session = Session::find_by_id($_SESSION['session']);
+                    if ($session) {
+                        $session->delete();
+                        session_destroy();
+                        setcookie("u", '', time()-3600);
+                        setcookie("s", '', time()-3600);
+                        return $session->to_json();
+                    } else {
+                        throw new Exception("Session not found.", 404);
+                    }
+                } else {
+                    throw new Exception("Authorisation required.", 403);
+                }
+
+            default:
+                throw new Exception("Unknown request.", 500);
+
         }
+
     }
 
 }

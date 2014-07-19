@@ -71,6 +71,9 @@ class Parameter {
             case 'regexp':
                 return filter_var($this->__value, FILTER_VALIDATE_REGEXP);
 
+            case 'string':
+                return $this->__toString();
+
             case 'value':
                 return $this->__value;
 

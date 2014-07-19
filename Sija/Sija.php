@@ -109,7 +109,7 @@ class Sija {
         }
 
         // Route the request.
-        if (!empty($request->url_elements)) {
+        if (!empty($request->url_elements) && !empty($request->url_elements[0])) {
             $controller_name = 'Sija\\Controllers\\' . ucfirst($request->url_elements[0]) . 'Controller';
             if (class_exists($controller_name)) {
                 $controller = new $controller_name;
@@ -123,8 +123,8 @@ class Sija {
                 }
             }
             else {
-                header('HTTP/1.1 404 Not Found');
-                $response_status = 404;
+                header('HTTP/1.1 500 Internal server error');
+                $response_status = 500;
                 $response_data = 'Unknown request: ' . $request->url_elements[0];
             }
         }

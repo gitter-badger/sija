@@ -48,6 +48,7 @@ class UserController extends Sija\Common\Controller {
                 throw new Exception("Unknown request.", 500);
 
         }
+
     }
 
     /**
