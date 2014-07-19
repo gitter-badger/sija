@@ -15,7 +15,7 @@ class UserController extends Sija\Common\Controller {
     /**
      * GET method: Information about users
      *
-     * @param  Request $request
+     * @param Request $request
      * @throws Exception
      * @return string
      */
@@ -54,7 +54,7 @@ class UserController extends Sija\Common\Controller {
     /**
      * POST method: Create new user
      *
-     * @param  Request $request
+     * @param Request $request
      * @throws Exception
      * @return string
      */
@@ -94,7 +94,7 @@ class UserController extends Sija\Common\Controller {
     /**
      * PUT method: Update information about user
      *
-     * @param  Request $request
+     * @param Request $request
      * @throws Exception
      * @return string
      */
@@ -136,7 +136,7 @@ class UserController extends Sija\Common\Controller {
     /**
      * DELETE method: Delete user
      *
-     * @param  Request $request
+     * @param Request $request
      * @throws Exception
      * @return string
      */
