@@ -108,7 +108,7 @@ class Sija {
         // Route the request.
         if (!empty($request->url_elements)) {
             $controller_name = 'Sija\\Controllers\\' . ucfirst($request->url_elements[0]) . 'Controller';
-            if ($controller_name != "AbstractController" && class_exists($controller_name)) {
+            if (class_exists($controller_name)) {
                 $controller = new $controller_name;
                 $action_name = strtolower($request->method);
                 try {
