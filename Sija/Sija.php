@@ -8,7 +8,7 @@
 
 namespace Sija;
 
-use ActiveRecord, Exception;
+use Sija\Common\Request, Sija\Common\ParametersList, Sija\Common\Response, ActiveRecord, Exception;
 
 /**
  * Init general autoload class.
@@ -86,15 +86,18 @@ class Sija {
 
         // Parse request method & parameters
         $request->method = strtoupper(isset($options['method']) ? $options['method'] : $_SERVER['REQUEST_METHOD']);
-        $request->parameters = null;
-        if (!isset($options['method'])) {
-            switch ($request->method) {
-                case 'GET': $request->parameters = (object) $_GET; break;
-                case 'POST': $request->parameters = (object) $_POST; break;
+        if (isset($options['parameters']) && is_array($options['parameters'])) {
+            $request->parameters = new ParametersList($options['parameters']);
+        } else {
+            if (!isset($options['method'])) {
+                switch ($request->method) {
+                    case 'GET': $request->parameters = new ParametersList($_GET); break;
+                    case 'POST': $request->parameters = new ParametersList($_POST); break;
+                    default: $request->parameters = new ParametersList(); break;
+                }
+            } else {
+                $request->parameters = new ParametersList();
             }
-        }
-        if (isset($options['parameters']) && (is_array($options['parameters']) || is_object($options['parameters']))) {
-            $request->parameters = is_array($options['parameters']) ? (object) $options['parameters'] : $options['parameters'];
         }
 
         // Parse incoming data.

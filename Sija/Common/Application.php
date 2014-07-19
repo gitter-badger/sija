@@ -2,11 +2,11 @@
 /**
  * Application class.
  *
- * @package Sija
+ * @package Sija\Common
  * @author Alex Chermenin <alex@chermenin.ru>
  */
 
-namespace Sija;
+namespace Sija\Common;
 
 use Sija\Models\User;
 

@@ -8,9 +8,9 @@
 
 namespace Sija\Controllers;
 
-use Sija, Sija\Config, Sija\Common, Sija\Application, Sija\Request, Sija\Models\User, Exception;
+use Sija, Sija\Config, Sija\Common\Common, Sija\Common\Application, Sija\Common\Request, Sija\Models\User, Exception;
 
-class UserController extends Sija\Controller {
+class UserController extends Sija\Common\Controller {
 
     /**
      * GET method: Information about users

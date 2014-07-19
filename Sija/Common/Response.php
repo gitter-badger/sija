@@ -2,11 +2,11 @@
 /**
  * Response class factory.
  *
- * @package Sija
+ * @package Sija\Common
  * @author Alex Chermenin <alex@chermenin.ru>
  */
 
-namespace Sija;
+namespace Sija\Common;
 
 class Response
 {

@@ -2,11 +2,11 @@
 /**
  * Request class.
  * 
- * @package Sija
+ * @package Sija\Common
  * @author Alex Chermenin <alex@chermenin.ru>
  */
 
-namespace Sija;
+namespace Sija\Common;
 
 class Request
 {
@@ -27,7 +27,7 @@ class Request
     /**
      * Any parameters sent with the request.
      *
-     * @var array
+     * @var ParametersList
      */
     public $parameters;
 
