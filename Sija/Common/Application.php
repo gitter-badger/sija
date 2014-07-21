@@ -13,6 +13,13 @@ use Sija\Models\User;
 class Application {
 
     /**
+     * Application general configuration
+     *
+     * @var $config Config
+     */
+    public static $config = null;
+
+    /**
      * Get current application user
      *
      * @return User

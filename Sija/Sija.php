@@ -8,7 +8,7 @@
 
 namespace Sija;
 
-use Sija\Common\Request, Sija\Common\ParametersList, Sija\Common\Response, ActiveRecord, Exception;
+use Sija\Common\Application, Sija\Common\Config, Sija\Common\Request, Sija\Common\ParametersList, Sija\Common\Response, ActiveRecord, Exception;
 
 /**
  * Init general autoload class.
@@ -37,27 +37,6 @@ spl_autoload_register('Sija\sija_autoloader');
 class Sija {
 
     /**
-     * Constructor.
-     *
-     * @return Sija
-     */
-    public function __construct() {
-
-        // Init sessions.
-        session_start();
-
-        // Init debug mode.
-        error_reporting(Config::$debug ? E_ALL : 0);
-
-        // Init Active Record.
-        ActiveRecord\Config::initialize(function($cfg)
-        {
-            $cfg->set_connections(Config::$connections);
-            $cfg->set_default_connection(Config::$connection);
-        });
-    }
-
-    /**
      * General executor.
      *
      * @param array $options
@@ -65,8 +44,24 @@ class Sija {
      */
     public function execute($options = array()) {
 
+        // Init sessions.
+        session_start();
+
+        // Apply application config.
+        Application::$config = new Config(isset($options['config']) && is_array($options['config']) ? $options['config'] : null);
+
+       // Init debug mode.
+        error_reporting(Application::$config->debug->bool ? E_ALL : 0);
+
+        // Init Active Record.
+        ActiveRecord\Config::initialize(function($cfg)
+        {
+            $cfg->set_connections(Application::$config->connections->value);
+            $cfg->set_default_connection(Application::$config->connection->string);
+        });
+
         // Parse only AJAX requests.
-        if(!Config::$debug && (
+        if(Application::$config->ajax_only->bool && (
             !isset($_SERVER['HTTP_X_REQUESTED_WITH']) ||
             empty($_SERVER['HTTP_X_REQUESTED_WITH']) ||
             strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) != 'xmlhttprequest')

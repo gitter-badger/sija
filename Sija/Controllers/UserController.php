@@ -8,7 +8,7 @@
 
 namespace Sija\Controllers;
 
-use Sija, Sija\Config, Sija\Common\Common, Sija\Common\Application, Sija\Common\Request, Sija\Models\User, Exception;
+use Sija, Sija\Common\Common, Sija\Common\Application, Sija\Common\Request, Sija\Models\User, Exception;
 
 class UserController extends Sija\Common\Controller {
 
@@ -24,8 +24,8 @@ class UserController extends Sija\Common\Controller {
         switch (count($request->url_elements)) {
 
             case 1:
-                $limit = $request->json->limit ? $request->json->limit : Config::$defaultLimit;
-                $offset = $request->json->offset ? $request->json->offset : Config::$defaultOffset;
+                $limit = $request->json->limit ? $request->json->limit : Application::$config->default_limit->int;
+                $offset = $request->json->offset ? $request->json->offset : Application::$config->default_offset->int;
                 $users = User::find('all', array('limit' => $limit, 'offset' => $offset));
                 foreach ($users as $user) {
                     $response[] = json_decode($user->to_json(array('except'=>'password')));
