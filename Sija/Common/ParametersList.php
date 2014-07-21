@@ -10,7 +10,7 @@ namespace Sija\Common;
 
 class ParametersList {
 
-    private $parameters = array();
+    private $__parameters = array();
 
     /**
      * Parameters list constructor.
@@ -32,7 +32,7 @@ class ParametersList {
      * @return Parameter
      */
     public function __get($name) {
-        return isset($this->parameters[$name]) ? $this->parameters[$name] : new Parameter();
+        return isset($this->__parameters[$name]) ? $this->__parameters[$name] : new Parameter();
     }
 
     /**
@@ -42,7 +42,7 @@ class ParametersList {
      * @param mixed $value
      */
     public function __set($name, $value) {
-        $this->parameters[$name] = is_object($value) && get_class($value) == get_class(new Parameter()) ? $value : new Parameter($value);
+        $this->__parameters[$name] = is_object($value) && get_class($value) == get_class(new Parameter()) ? $value : new Parameter($value);
     }
 
     /**
@@ -62,7 +62,7 @@ class ParametersList {
      * @return bool
      */
     public function exists($name) {
-        return isset($this->parameters[$name]);
+        return isset($this->__parameters[$name]);
     }
 
 }
