@@ -21,6 +21,7 @@ namespace Sija\Common;
  * @property string email
  * @property string ip
  * @property string regexp
+ * @property string string
  * @property mixed value
  */
 class Parameter {
