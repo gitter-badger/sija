@@ -17,6 +17,7 @@ namespace Sija\Common;
  * @property Parameter default_limit
  * @property Parameter connections
  * @property Parameter connection
+ * @property Parameter directories
  */
 class Config {
 

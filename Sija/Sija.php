@@ -58,6 +58,10 @@ class Sija {
         {
             $cfg->set_connections(Application::$config->connections->value);
             $cfg->set_default_connection(Application::$config->connection->string);
+            if (!Application::$config->directories->isEmpty() && isset(Application::$config->directories->value['models'])) {
+                $base_dir = isset(Application::$config->directories->value['base']) ? Application::$config->directories->value['base'] : __DIR__;
+                $cfg->set_model_directory(str_replace('{{base}}', $base_dir, Application::$config->directories->value['models']));
+            }
         });
 
         // Parse only AJAX requests.
@@ -105,9 +109,10 @@ class Sija {
 
         // Route the request.
         if (!empty($request->url_elements) && !empty($request->url_elements[0])) {
-            $controller_name = 'Sija\\Controllers\\' . ucfirst($request->url_elements[0]) . 'Controller';
-            if (class_exists($controller_name)) {
-                $controller = new $controller_name;
+            $controller_name = ucfirst($request->url_elements[0]);
+            $controller_classname = ($this->__attachController($controller_name) ? $controller_name : 'Sija\\Controllers\\' . $controller_name) . 'Controller';
+            if (class_exists($controller_classname)) {
+                $controller = new $controller_classname;
                 $action_name = strtolower($request->method);
                 try {
                     $response_status = 200;
@@ -133,6 +138,48 @@ class Sija {
         $response_obj = Response::create($response_status, $response_data, $_SERVER['HTTP_ACCEPT']);
         return $response_obj->render();
     }
+
+    /**
+     * Private method to search controller file and attach it.
+     *
+     * @param string $name Controller name.
+     * @return bool Attached or not.
+     */
+    private function __attachController($name) {
+
+        if (!Application::$config->directories->isEmpty() && is_array(Application::$config->directories->value)) {
+
+            // Set controller directories.
+            $base_dir = isset(Application::$config->directories->value['base']) ? Application::$config->directories->value['base'] : __DIR__;
+            $controller_dirs = Application::$config->directories->value['controllers'];
+
+            // Looking for...
+            if ($controller_dirs) {
+
+                // Set controller file name.
+                $controller_filename = ucfirst($name) . "Controller.php";
+
+                // Search in directories.
+                if (is_array($controller_dirs)) {
+                    foreach($controller_dirs as $controller_dir) {
+                        $controller_file = rtrim(str_replace('{{base}}', $base_dir, $controller_dir), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $controller_filename;
+                        if(file_exists($controller_file)) {
+                            require_once($controller_file); return true;
+                        }
+                    }
+                } else {
+                    $controller_file = rtrim(str_replace('{{base}}', $base_dir, $controller_dirs), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $controller_filename;
+                    if(file_exists($controller_file)) {
+                        require_once($controller_file); return true;
+                    }
+                }
+            }
+        }
+
+        // Not found :(
+        return false;
+    }
+
 
 }
 
