@@ -69,9 +69,6 @@ class Parameter {
             case 'ip':
                 return filter_var($this->__value, FILTER_VALIDATE_IP);
 
-            case 'regexp':
-                return filter_var($this->__value, FILTER_VALIDATE_REGEXP);
-
             case 'string':
                 return $this->__toString();
 
@@ -97,6 +94,16 @@ class Parameter {
      */
     public function isEmpty() {
         return empty($this->__value);
+    }
+
+    /**
+     * Filter value via regular expression.
+     *
+     * @param string $regexp
+     * @return string|bool
+     */
+    public function filter($regexp) {
+        return filter_var($this->__value, FILTER_VALIDATE_REGEXP, array('options'=>array('regexp'=>$regexp)));
     }
 
 }
