@@ -79,11 +79,6 @@ class Sija {
         // Parse incoming request info.
         $request = new Request();
 
-        // Parse path elements.
-        if (isset($options['path']) || isset($_SERVER['PATH_INFO'])) {
-            $request->url_elements = explode('/', trim(isset($options['path']) ? $options['path'] : $_SERVER['PATH_INFO'], '/'));
-        }
-
         // Parse request method & parameters
         $request->method = strtoupper(isset($options['method']) ? $options['method'] : $_SERVER['REQUEST_METHOD']);
         if (isset($options['parameters']) && is_array($options['parameters'])) {
@@ -98,6 +93,41 @@ class Sija {
             } else {
                 $request->parameters = new ParametersList();
             }
+        }
+
+        // Parse routes.
+        if (isset($options['path']) || isset($_SERVER['PATH_INFO'])) {
+            $path = trim(isset($options['path']) ? $options['path'] : $_SERVER['PATH_INFO'], '/');
+            if (isset($options['routes']) && is_array($options['routes'])) {
+                $routes = $options['routes'];
+                if (isset($routes['general']) && is_array($routes['general'])) {
+                    foreach($routes['general'] as $key => $route) {
+                        $path = preg_replace($key, $route, $path);
+                    }
+                }
+                if (isset($routes[strtolower($request->method)]) && is_array($routes[strtolower($request->method)])) {
+                    foreach($routes[strtolower($request->method)] as $key => $route) {
+                        $path = preg_replace($key, $route, $path);
+                    }
+                }
+            }
+            $path_elements = explode('?', $path);
+            if (count($path_elements) > 0) {
+                $path = $path_elements[0];
+                if (count($path_elements) > 1) {
+                    $path_parameters = explode('&', $path_elements[1]);
+                    foreach ($path_parameters as $path_parameter) {
+                        $path_parameter_pair = explode('=', $path_parameter);
+                        switch (count($path_parameter_pair)) {
+                            case 1: $request->parameters->add($path_parameter_pair[0]); break;
+                            case 2: $request->parameters->add($path_parameter_pair[0], $path_parameter_pair[1]); break;
+                        }
+                    }
+                }
+
+            }
+
+            $request->url_elements = explode('/', trim($path, '/'));
         }
 
         // Parse incoming data.
