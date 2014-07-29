@@ -18,6 +18,7 @@ namespace Sija\Common;
  * @property Parameter connections
  * @property Parameter connection
  * @property Parameter directories
+ * @property Parameter routes
  */
 class Config {
 

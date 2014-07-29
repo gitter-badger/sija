@@ -95,11 +95,11 @@ class Sija {
             }
         }
 
-        // Parse routes.
+        // Parse routes settings.
         if (isset($options['path']) || isset($_SERVER['PATH_INFO'])) {
             $path = trim(isset($options['path']) ? $options['path'] : $_SERVER['PATH_INFO'], '/');
-            if (isset($options['routes']) && is_array($options['routes'])) {
-                $routes = $options['routes'];
+            if (!Application::$config->routes->isEmpty()  && is_array(Application::$config->routes->value)) {
+                $routes = Application::$config->routes->value;
                 if (isset($routes['general']) && is_array($routes['general'])) {
                     foreach($routes['general'] as $key => $route) {
                         $path = preg_replace($key, $route, $path);
