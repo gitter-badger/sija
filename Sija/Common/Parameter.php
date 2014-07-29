@@ -84,7 +84,7 @@ class Parameter {
      * @return string
      */
     public function __toString() {
-        return print_r($this->__value);
+        return print_r($this->__value, true);
     }
 
     /**
