@@ -1,3 +1,3 @@
-sija framework
-===
-It is a simple framework to create RESTful Json API services.
+Sija Framework
+====
+Sija is an open source software implementation of some guidelines and small framework to help quickly and easily create a simple REST-services and web applications using JSON API.
