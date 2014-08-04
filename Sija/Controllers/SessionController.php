@@ -17,7 +17,7 @@ class SessionController extends Sija\Common\Controller {
      *
      * @param Request $request
      * @throws Exception
-     * @return string
+     * @return mixed
      */
     public function get($request) {
 
@@ -27,7 +27,7 @@ class SessionController extends Sija\Common\Controller {
                 if (!Common::checkAuthorization()) throw new Exception("Authorisation required.", 403);
                 $session = Session::find_by_id($_SESSION['session']);
                 if ($session) {
-                    return $session->to_json();
+                    return json_decode($session->to_json());
                 } else {
                     throw new Exception("Internal error.", 500);
                 }
@@ -44,7 +44,7 @@ class SessionController extends Sija\Common\Controller {
      *
      * @param Request $request
      * @throws Exception
-     * @return string
+     * @return mixed
      */
     public function post($request) {
 
@@ -69,7 +69,7 @@ class SessionController extends Sija\Common\Controller {
                 // Like success - create session & return
                 $session = Session::find_by_id($_SESSION['session']);
                 if ($session) {
-                    return  $session->to_json();
+                    return  json_decode($session->to_json());
                 } else {
                     throw new Exception("Internal error.", 500);
                 }
@@ -86,7 +86,7 @@ class SessionController extends Sija\Common\Controller {
      *
      * @param Request $request
      * @throws Exception
-     * @return string
+     * @return mixed
      */
     public function delete($request) {
 
@@ -100,7 +100,7 @@ class SessionController extends Sija\Common\Controller {
                         session_destroy();
                         setcookie("u", '', time()-3600);
                         setcookie("s", '', time()-3600);
-                        return $session->to_json();
+                        return json_decode($session->to_json());
                     } else {
                         throw new Exception("Session not found.", 404);
                     }

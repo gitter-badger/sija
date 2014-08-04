@@ -17,7 +17,7 @@ class UserController extends Sija\Common\Controller {
      *
      * @param Request $request
      * @throws Exception
-     * @return string
+     * @return mixed
      */
     public function get($request) {
 
@@ -31,7 +31,7 @@ class UserController extends Sija\Common\Controller {
                     $response[] = json_decode($user->to_json(array('except'=>'password')));
                 }
                 if (isset($response)) {
-                    return json_encode($response);
+                    return $response;
                 } else {
                     throw new Exception("Users not found.", 404);
                 }
@@ -39,7 +39,7 @@ class UserController extends Sija\Common\Controller {
             case 2:
                 $user = User::find_by_id($request->url_elements[1]);
                 if ($user) {
-                    return $user->to_json(array('except'=>'password'));
+                    return json_decode($user->to_json(array('except'=>'password')));
                 } else {
                     throw new Exception("User not found.", 404);
                 }
@@ -56,7 +56,7 @@ class UserController extends Sija\Common\Controller {
      *
      * @param Request $request
      * @throws Exception
-     * @return string
+     * @return mixed
      */
     public function post($request) {
 
@@ -82,7 +82,7 @@ class UserController extends Sija\Common\Controller {
                     'login' => $request->json->login,
                     'password' => Common::getPasswordHash($request->json->password, $request->json->login),
                 ));
-                return $user->to_json(array('except'=>'password'));
+                return json_decode($user->to_json(array('except'=>'password')));
 
             default:
                 throw new Exception("Unknown request.", 500);
@@ -96,7 +96,7 @@ class UserController extends Sija\Common\Controller {
      *
      * @param Request $request
      * @throws Exception
-     * @return string
+     * @return mixed
      */
     public function put($request) {
 
@@ -121,7 +121,7 @@ class UserController extends Sija\Common\Controller {
                     $user->login = $request->json->login ? $request->json->login : $user->login;
                     $user->password = $request->json->password ? Common::getPasswordHash($request->json->password, $request->json->login) : $user->password;
                     $user->save();
-                    return $user->to_json(array('except'=>'password'));
+                    return json_decode($user->to_json(array('except'=>'password')));
                 } else {
                     throw new Exception("User not found.", 404);
                 }
@@ -138,7 +138,7 @@ class UserController extends Sija\Common\Controller {
      *
      * @param Request $request
      * @throws Exception
-     * @return string
+     * @return mixed
      */
     public function delete($request) {
 
@@ -153,7 +153,7 @@ class UserController extends Sija\Common\Controller {
                 $user = User::find_by_id($request->url_elements[1]);
                 if ($user) {
                     $user->delete();
-                    return $user->to_json(array('except'=>'password'));
+                    return json_decode($user->to_json(array('except'=>'password')));
                 } else {
                     throw new Exception("User not found.", 404);
                 }

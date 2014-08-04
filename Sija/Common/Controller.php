@@ -17,7 +17,7 @@ class Controller {
      *
      * @param Request $request
      * @throws Exception
-     * @return string
+     * @return mixed
      */
     public function get($request) { throw new Exception("Not implemented method.", 500); }
 
@@ -26,7 +26,7 @@ class Controller {
      *
      * @param Request $request
      * @throws Exception
-     * @return string
+     * @return mixed
      */
     public function post($request) { throw new Exception("Not implemented method.", 500); }
 
@@ -35,7 +35,7 @@ class Controller {
      *
      * @param Request $request
      * @throws Exception
-     * @return string
+     * @return mixed
      */
     public function put($request) { throw new Exception("Not implemented method.", 500); }
 
@@ -44,7 +44,7 @@ class Controller {
      *
      * @param Request $request
      * @throws Exception
-     * @return string
+     * @return mixed
      */
     public function delete($request) { throw new Exception("Not implemented method.", 500); }
 

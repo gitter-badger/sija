@@ -146,7 +146,7 @@ class Sija {
                 $action_name = strtolower($request->method);
                 try {
                     $response_status = 200;
-                    $response_data = json_decode(call_user_func_array(array($controller, $action_name), array($request)));
+                    $response_data = call_user_func_array(array($controller, $action_name), array($request));
                 } catch (Exception $e) {
                     $response_status = $e->getCode();
                     $response_data = $e->getMessage();
