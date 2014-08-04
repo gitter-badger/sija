@@ -8,37 +8,10 @@
 
 namespace Sija\Common;
 
-class ResponseJson
-{
+class ResponseJson extends Response {
+
     /**
-     * Response status.
-     *
-     * @var int
-     */
-    protected $status;
-    
-    /**
-     * Response data.
-     *
-     * @var object
-     */
-    protected $data;
-    
-    /**
-     * Constructor.
-     *
-     * @param int $status
-     * @param mixed|object|string $data
-     */
-    public function __construct($status, $data)
-    {
-        $this->status = $status;
-        $this->data = $data;
-        return $this;
-    }
-    
-    /**
-     * Render the response as JSON.
+     * Render response as JSON.
      * 
      * @return string
      */
@@ -47,4 +20,5 @@ class ResponseJson
         header('Content-Type: application/json');
         return json_encode(array('status' => $this->status, 'response' => $this->data));
     }
+
 }

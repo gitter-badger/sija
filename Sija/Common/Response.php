@@ -1,31 +1,53 @@
 <?php
 /**
- * Response class factory.
- *
+ * Response class.
+ * 
  * @package Sija\Common
  * @author Alex Chermenin <alex@chermenin.ru>
  */
 
 namespace Sija\Common;
 
-class Response
-{
+use Exception;
+
+class Response {
+
+    /**
+     * Response status.
+     *
+     * @var int
+     */
+    protected $status;
+    
+    /**
+     * Response data.
+     *
+     * @var object
+     */
+    protected $data;
+    
     /**
      * Constructor.
      *
      * @param int $status
      * @param mixed|object|string $data
-     * @param string $format
-     * @return ResponseJson
      */
-    public static function create($status, $data, $format)
+    public function __construct($status, $data)
     {
-        switch ($format) {
-            case 'application/json':
-            default:
-                $obj = new ResponseJson($status, $data);
-            break;
-        }
-        return $obj;
+        $this->status = $status;
+        $this->data = $data;
+        return $this;
     }
+    
+    /**
+     * Render response.
+     * 
+     * @return string
+     * @throws Exception
+     */
+    public function render()
+    {
+        throw new Exception("Not implemented.");
+    }
+
 }

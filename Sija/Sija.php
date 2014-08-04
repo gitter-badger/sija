@@ -8,7 +8,7 @@
 
 namespace Sija;
 
-use Sija\Common\Application, Sija\Common\Config, Sija\Common\Request, Sija\Common\ParametersList, Sija\Common\Response, ActiveRecord, Exception;
+use Sija\Common\Application, Sija\Common\Config, Sija\Common\Request, Sija\Common\ParametersList, Sija\Common\ResponseBuilder, ActiveRecord, Exception;
 
 /**
  * Init general autoload class.
@@ -39,7 +39,6 @@ class Sija {
     /**
      * General executor.
      *
-     * @todo Create route settings.
      * @param array $options
      * @return string
      */
@@ -72,7 +71,7 @@ class Sija {
             strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) != 'xmlhttprequest')
         ) {
             header('HTTP/1.1 500 Internal server error');
-            $response_obj = Response::create(500, "This API allow only AJAX requests.", $_SERVER['HTTP_ACCEPT']);
+            $response_obj = ResponseBuilder::create(500, "This API allow only AJAX requests.", $_SERVER['HTTP_ACCEPT']);
             return $response_obj->render();
         }
 
@@ -166,7 +165,7 @@ class Sija {
         }
 
         // Return response
-        $response_obj = Response::create($response_status, $response_data, $_SERVER['HTTP_ACCEPT']);
+        $response_obj = ResponseBuilder::create($response_status, $response_data, $_SERVER['HTTP_ACCEPT']);
         return $response_obj->render();
     }
 
