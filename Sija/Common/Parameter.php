@@ -7,6 +7,7 @@
  */
 
 namespace Sija\Common;
+use Exception;
 
 /**
  * Properties to type check.
@@ -43,6 +44,7 @@ class Parameter {
      * Default getter.
      * 
      * @param string $name
+     * @throws Exception
      * @return mixed|null
      */
     public function __get($name) {
@@ -75,6 +77,8 @@ class Parameter {
             case 'value':
                 return $this->__value;
 
+            default:
+                throw new Exception("Undefined property: $name");
         }
     }
 
