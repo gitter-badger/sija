@@ -10,7 +10,7 @@ namespace Sija\Controllers;
 
 use Sija, Sija\Common\Common, Sija\Common\Application, Sija\Common\Request, Sija\Models\User, Exception;
 
-class UserController extends Sija\Common\Controller {
+class UserController extends Sija\Common\AbstractController {
 
     /**
      * GET method: Information about users

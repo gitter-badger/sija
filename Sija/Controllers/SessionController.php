@@ -10,7 +10,7 @@ namespace Sija\Controllers;
 
 use Sija, Sija\Common\Common, Sija\Common\Request, Sija\Models\Session, Exception;
 
-class SessionController extends Sija\Common\Controller {
+class SessionController extends Sija\Common\AbstractController {
 
     /**
      * GET method: Information about current session.

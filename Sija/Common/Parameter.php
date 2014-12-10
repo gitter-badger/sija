@@ -7,6 +7,7 @@
  */
 
 namespace Sija\Common;
+
 use Exception;
 
 /**

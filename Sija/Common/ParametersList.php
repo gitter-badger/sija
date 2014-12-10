@@ -42,7 +42,7 @@ class ParametersList {
      * @param mixed $value
      */
     public function __set($name, $value) {
-        $this->__parameters[$name] = is_object($value) && get_class($value) == get_class(new Parameter()) ? $value : new Parameter($value);
+        $this->__parameters[$name] = is_object($value) && $value instanceof Parameter ? $value : new Parameter($value);
     }
 
     /**
@@ -63,6 +63,19 @@ class ParametersList {
      */
     public function exists($name) {
         return isset($this->__parameters[$name]);
+    }
+
+    /**
+     * Get raw parameters array.
+     *
+     * @return array
+     */
+    public function toArray() {
+        $result = array();
+        foreach ($this->__parameters as $name => $value) {
+            $result[$name] = $value->value;
+        }
+        return $result;
     }
 
 }

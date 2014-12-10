@@ -1,6 +1,6 @@
 <?php
 /**
- * Controller class.
+ * Abstract controller class.
  *
  * @package Sija\Common
  * @author Alex Chermenin <alex@chermenin.ru>
@@ -10,7 +10,7 @@ namespace Sija\Common;
 
 use Exception;
 
-class Controller {
+class AbstractController {
 
     /**
      * GET method.
