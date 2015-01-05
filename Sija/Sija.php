@@ -142,7 +142,7 @@ class Sija {
             $controller_name = ucfirst($request->url_elements[0]);
             $controller_classname = ($this->__attachController($controller_name) ? $controller_name : 'Sija\\Controllers\\' . $controller_name) . 'Controller';
             $controller_parents = class_parents($controller_classname);
-            if (class_exists($controller_classname) && $controller_parents && is_array($controller_parents) && in_array("Sija\\Common\\Controller", $controller_parents)) {
+            if (class_exists($controller_classname) && $controller_parents && is_array($controller_parents) && in_array("Sija\\Common\\AbstractController", $controller_parents)) {
                 $controller = new $controller_classname;
                 $action_name = strtolower($request->method);
                 try {
