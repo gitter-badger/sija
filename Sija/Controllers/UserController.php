@@ -24,8 +24,8 @@ class UserController extends Sija\Common\AbstractController {
         switch (count($request->url_elements)) {
 
             case 1:
-                $limit = $request->json->limit ? $request->json->limit : Application::$config->default_limit->int;
-                $offset = $request->json->offset ? $request->json->offset : Application::$config->default_offset->int;
+                $limit = $request->parameters->exists("limit") ? $request->parameters->limit->int : Application::$config->default_limit->int;
+                $offset = $request->parameters->exists("offset") ? $request->parameters->offset->int : Application::$config->default_offset->int;
                 $users = User::find('all', array('limit' => $limit, 'offset' => $offset));
                 foreach ($users as $user) {
                     $response[] = json_decode($user->to_json(array('except'=>'password')));
